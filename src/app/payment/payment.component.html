@@ -1,0 +1,18 @@
+<div class="container d-flex justify-content-center">
+    <form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Introducir Importe</label>
+          <input type="number" class="form-control" id="amount" name="amount" [(ngModel)]="amount">
+        </div>
+      </form>
+</div>
+
+<div class="container d-flex justify-content-center" *ngIf="amount > 0">
+    <ngx-braintree 
+  [clientTokenURL]="backendTokenUrl" 
+  [createPurchaseURL]="'api/braintree/createpurchase'" 
+  [chargeAmount]="amount"
+  (paymentStatus)="onPaymentStatus($event)"
+  [buttonText]="'Enviar'">
+</ngx-braintree>
+</div>
