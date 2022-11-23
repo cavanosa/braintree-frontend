@@ -9,8 +9,8 @@
 
 <div class="container d-flex justify-content-center" *ngIf="amount > 0">
     <ngx-braintree 
-  [clientTokenURL]="backendTokenUrl" 
-  [createPurchaseURL]="'api/braintree/createpurchase'" 
+  [getClientToken]="getClientToken.bind(this)" 
+  [createPurchase]="checkout.bind(this)" 
   [chargeAmount]="amount"
   (paymentStatus)="onPaymentStatus($event)"
   [buttonText]="'Enviar'">

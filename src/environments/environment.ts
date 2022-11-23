@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendTokenUrl: 'http://localhost:8080/api/token'
+  backendUrl: 'http://localhost:8080/api/'
 };
 
 /*
