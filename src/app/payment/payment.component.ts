@@ -1,7 +1,9 @@
+import { PurchaseDto } from './../purchase-dto';
 import { PaymentService } from './../payment.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -14,7 +16,8 @@ export class PaymentComponent implements OnInit {
 
 
   constructor(
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -35,9 +38,19 @@ export class PaymentComponent implements OnInit {
     ));
   }
 
-  checkout(nonce: string, amount: number): void {
+  checkout(nonce: string, amount: number): Observable<any> {
     console.log('Nonce: ' + nonce);
     console.log('Amount: ' + amount);
+    const dto = new PurchaseDto(nonce, amount);
+    return this.paymentService.checkout(dto).pipe(map(
+      data => {
+        this.router.navigate(['/success']);
+        return data;
+      },
+      err => {
+        return Observable.throw(err);
+      }
+    ));
   }
 
 

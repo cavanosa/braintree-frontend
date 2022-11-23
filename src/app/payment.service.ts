@@ -1,3 +1,4 @@
+import { PurchaseDto } from './purchase-dto';
 import { environment } from './../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -16,5 +17,8 @@ export class PaymentService {
     return this.httpClient.get<any>(this.backendURL + 'token');
   }
 
+  public checkout(dto: PurchaseDto): Observable<any> {
+    return this.httpClient.post<any>(this.backendURL + 'checkout', dto);
+  }
 
 }
